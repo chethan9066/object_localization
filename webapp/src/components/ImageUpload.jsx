@@ -17,14 +17,16 @@ const ImageUpload = () => {
     formData.append('image', file);
 
     try {
-      const response = await axios.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+    //   const response = await axios.post('/upload', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   });
 
-      setImageData(response.data.image);
-      setOutput(response.data.output);
+    //   setImageData(response.data.image);
+    //   setOutput(response.data.output);
+        setImageData(file);
+        setOutput(file);
     } catch (error) {
       console.error('Error uploading image:', error);
     } finally {
@@ -34,10 +36,10 @@ const ImageUpload = () => {
 
   return (
     <div className="container">
-      <div className="columns is-centered">
+      <div className="columns is-centered" style={{marginTop:"10px"}}>
         <div className="column is-half">
           <div className="box">
-            <h5 className="title is-5">IMG</h5>
+            <h5 className="title is-5">Input Image</h5>
             {file && (
               <figure className="image is-square">
                 <img src={URL.createObjectURL(file)} alt="Uploaded" />
