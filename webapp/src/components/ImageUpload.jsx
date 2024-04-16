@@ -67,7 +67,7 @@ const ImageUpload = () => {
                 isLoading ? 'is-loading' : ''
               }`}
               onClick={handleUpload}
-              disabled={isLoading}
+              disabled={isLoading || !file}
             >
               {isLoading ? 'Uploading...' : 'SUBMIT'}
             </button>
