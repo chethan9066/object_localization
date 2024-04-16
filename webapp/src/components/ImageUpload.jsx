@@ -1,57 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import {
-  Button,
-  Typography,
-  Grid,
-  styled,
-  Box,
-  Paper,
-  CircularProgress,
-  LinearProgress,
-} from '@mui/material';
-
-const Root = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: theme.spacing(3),
-}));
-
-const ImageContainer = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%',
-  maxWidth: '800px',
-  boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
-}));
-
-const Image = styled('img')(({ theme }) => ({
-  maxWidth: '100%',
-  height: 'auto',
-  marginBottom: theme.spacing(2),
-}));
-
-const OutputContainer = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '100%',
-  maxWidth: '800px',
-  boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)',
-  marginTop: theme.spacing(3),
-}));
-
-const OutputItem = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  marginBottom: theme.spacing(1),
-}));
 
 const ImageUpload = () => {
   const [file, setFile] = useState(null);
@@ -85,47 +33,70 @@ const ImageUpload = () => {
   };
 
   return (
-    <Root>
-      <ImageContainer>
-        <Typography variant="h5" gutterBottom>
-          IMG
-        </Typography>
-        {file && <Image src={URL.createObjectURL(file)} alt="Uploaded" />}
-        <input
-          accept="image/*"
-          type="file"
-          onChange={handleFileChange}
-          style={{ marginBottom: '1rem' }}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleUpload}
-          disabled={isLoading}
-        >
-          {isLoading ? 'Uploading...' : 'SUBMIT'}
-        </Button>
-      </ImageContainer>
-      <OutputContainer>
-        <Typography variant="h5" gutterBottom>
-          OUTPUT
-        </Typography>
-        {isLoading && <LinearProgress />}
-        {Object.keys(output).map((key) => (
-          <OutputItem key={key}>
-            <Typography>{key}</Typography>
-            <Box display="flex" alignItems="center">
-              <Typography>{output[key].toFixed(2)}%</Typography>
-              <LinearProgress
-                variant="determinate"
-                value={output[key]}
-                style={{ width: '100px', marginLeft: '1rem' }}
-              />
-            </Box>
-          </OutputItem>
-        ))}
-      </OutputContainer>
-    </Root>
+    <div className="container">
+      <div className="columns is-centered">
+        <div className="column is-half">
+          <div className="box">
+            <h5 className="title is-5">IMG</h5>
+            {file && (
+              <figure className="image is-square">
+                <img src={URL.createObjectURL(file)} alt="Uploaded" />
+              </figure>
+            )}
+            <div className="file has-name is-fullwidth">
+              <label className="file-label">
+                <input
+                  className="file-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+                <span className="file-cta">
+                  <span className="file-icon">
+                    <i className="fas fa-upload"></i>
+                  </span>
+                  <span className="file-label">Choose a file...</span>
+                </span>
+                <span className="file-name"></span>
+              </label>
+            </div>
+            <button
+              className={`button is-primary is-fullwidth ${
+                isLoading ? 'is-loading' : ''
+              }`}
+              onClick={handleUpload}
+              disabled={isLoading}
+            >
+              {isLoading ? 'Uploading...' : 'SUBMIT'}
+            </button>
+          </div>
+          <div className="box">
+            <h5 className="title is-5">OUTPUT</h5>
+            {isLoading && <progress className="progress is-small is-primary" max="100"></progress>}
+            {Object.keys(output).map((key) => (
+              <div key={key} className="level">
+                <div className="level-left">
+                  <div className="level-item">
+                    <span>{key}</span>
+                  </div>
+                </div>
+                <div className="level-right">
+                  <div className="level-item">
+                    <progress
+                      className="progress is-small is-primary"
+                      value={output[key]}
+                      max="100"
+                    >
+                      {output[key].toFixed(2)}%
+                    </progress>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
