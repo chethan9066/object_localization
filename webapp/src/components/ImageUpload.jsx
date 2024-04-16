@@ -75,7 +75,7 @@ const ImageUpload = () => {
           <div className="box">
             <h5 className="title is-5">OUTPUT</h5>
             {isLoading && <progress className="progress is-small is-primary" max="100"></progress>}
-            {Object.keys(output).map((key) => (
+            {/* {Object.keys(output).map((key) => (
               <div key={key} className="level">
                 <div className="level-left">
                   <div className="level-item">
@@ -94,7 +94,12 @@ const ImageUpload = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
+            {imageData && (
+              <figure className="image is-square">
+                <img src={URL.createObjectURL(imageData)} alt="output image" />
+              </figure>
+            )}
           </div>
         </div>
       </div>
