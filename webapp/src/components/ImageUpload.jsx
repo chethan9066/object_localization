@@ -63,7 +63,7 @@ const ImageUpload = () => {
               </label>
             </div>
             <button
-              className={`button is-primary is-fullwidth ${
+              className={`button is-link is-fullwidth ${
                 isLoading ? 'is-loading' : ''
               }`}
               onClick={handleUpload}
