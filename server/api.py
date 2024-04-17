@@ -3,13 +3,13 @@ from flask import Flask, request, jsonify
 import base64
 import cv2
 import numpy as np
-from ultralytics import YOLO
+# from ultralytics import YOLO
 
-# Load the YOLOv5 model
-model = YOLO("model/best.pt")
+# # Load the YOLOv5 model
+# model = YOLO("model/best.pt")
 
-# Set the confidence threshold
-model.conf = 0.25
+# # Set the confidence threshold
+# model.conf = 0.25
 
 
 app = Flask(__name__)
@@ -40,7 +40,7 @@ def detect_defects(image):
 
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/api/upload', methods=['POST'])
 def upload_image():
     # Get the image file from the request
     file = request.files['image']
@@ -49,7 +49,7 @@ def upload_image():
     file_bytes = np.frombuffer(file.read(), np.uint8)
     img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
 
-    result_img = detect_defects(img)
+    # result_img = detect_defects(img)
 
     # Convert the image to base64 string
     _, img_encoded = cv2.imencode('.jpg', img)

@@ -17,16 +17,17 @@ const ImageUpload = () => {
     formData.append('image', file);
 
     try {
-      //   const response = await axios.post('/upload', formData, {
-      //     headers: {
-      //       'Content-Type': 'multipart/form-data',
-      //     },
-      //   });
+        const response = await axios.post('/api/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(response.data.image)
 
-      //   setImageData(response.data.image);
-      //   setOutput(response.data.output);
-      setImageData(file);
-      setOutput(file);
+        setImageData(response.data.image);
+        // setOutput(response.data.output);
+      // setImageData(file);
+      // setOutput(file);
     } catch (error) {
       console.error('Error uploading image:', error);
     } finally {
@@ -98,7 +99,7 @@ const ImageUpload = () => {
             ))} */}
                 {imageData && (
                   <figure className="image is-square">
-                    <img src={URL.createObjectURL(imageData)} alt="output image" />
+                    <img src={`data:image/png;base64,${imageData}`} alt="output" />
                   </figure>
                 )}
               </div>
