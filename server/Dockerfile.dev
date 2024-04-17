@@ -1,0 +1,19 @@
+
+FROM python:3.10.12
+
+WORKDIR /server
+
+ENV FLASK_APP=api.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_DEBUG=True
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements.txt /server/requirements.txt
+RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# COPY . /app
+
+CMD ["flask", "run"]
