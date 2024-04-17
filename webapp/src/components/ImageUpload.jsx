@@ -22,8 +22,6 @@ const ImageUpload = () => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        console.log(response.data.image)
-
         setImageData(response.data.image);
         // setOutput(response.data.output);
       // setImageData(file);
